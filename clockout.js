@@ -5,7 +5,7 @@ const run = async () => {
   try {
     browser = await puppeteer.launch({
       headless: "new",
-      userDataDir: "/Users/imperium/Documents/my_chrome_data",
+      userDataDir: "/home/ubuntu/my_chrome_data",
     });
     const page = await browser.newPage();
     await page.goto("https://ibexlabs.keka.com/");
