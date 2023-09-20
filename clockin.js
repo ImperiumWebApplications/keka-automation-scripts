@@ -36,7 +36,7 @@ const run = async () => {
 
     await page.waitForTimeout(10000);
   } catch (error) {
-    console.log(`Error happened ${error}`);
+    console.log(`Error occured within clockin script ${error}`);
   } finally {
     if (browser) {
       await browser.close();
