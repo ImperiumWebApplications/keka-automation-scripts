@@ -64,8 +64,6 @@ const run = async () => {
     });
 
     await page.waitForTimeout(10000);
-
-    await browser.close();
   } catch (error) {
     console.log(`Error occured within clockout script ${error}`);
   } finally {
