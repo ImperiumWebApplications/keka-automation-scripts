@@ -53,7 +53,13 @@ const run = async () => {
     console.log(`Error occured within clockout script ${error}`);
   } finally {
     if (browser) {
-      await browser.close();
+      try {
+        await browser.close();
+      } catch (closeError) {
+        console.log(
+          `An error occurred while closing the browser: ${closeError}`
+        );
+      }
     }
   }
 };
