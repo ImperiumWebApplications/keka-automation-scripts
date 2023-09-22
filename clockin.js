@@ -5,6 +5,13 @@ const path = require("path");
 const run = async () => {
   let browser;
   try {
+    fs.readdir("/home/ubuntu/my_chrome_data", (err, files) => {
+      if (err) {
+        console.error(`Error reading directory: ${err}`);
+      } else {
+        console.log(`Files in directory: ${files}`);
+      }
+    });
     // Delete SingletonLock file
     const lockFilePath = path.join(
       "/home/ubuntu/my_chrome_data",
