@@ -5,13 +5,20 @@ const path = require("path");
 const run = async () => {
   let browser;
   try {
-    // Delete SingletonLock file
     const lockFilePath = path.join(
       "/home/ubuntu/my_chrome_data",
       "SingletonLock"
     );
-    if (fs.existsSync(lockFilePath)) {
+    try {
       fs.unlinkSync(lockFilePath);
+    } catch (err) {
+      if (err.code === "ENOENT") {
+        console.log(`File ${lockFilePath} does not exist`);
+      } else {
+        console.log(
+          `An error occurred while attempting to delete ${lockFilePath}: ${err}`
+        );
+      }
     }
     browser = await puppeteer.launch({
       headless: "new",
