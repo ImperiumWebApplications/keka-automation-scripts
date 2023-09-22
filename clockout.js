@@ -1,8 +1,17 @@
 const puppeteer = require("puppeteer");
+const fs = require("fs");
 
 const run = async () => {
   let browser;
   try {
+    // Delete SingletonLock file
+    const lockFilePath = path.join(
+      "/home/ubuntu/my_chrome_data",
+      "SingletonLock"
+    );
+    if (fs.existsSync(lockFilePath)) {
+      fs.unlinkSync(lockFilePath);
+    }
     browser = await puppeteer.launch({
       headless: "new",
       userDataDir: "/home/ubuntu/my_chrome_data",
