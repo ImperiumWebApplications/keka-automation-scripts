@@ -2,12 +2,19 @@ const puppeteer = require("puppeteer");
 const fs = require("fs");
 const path = require("path");
 
+const userDataDir = "/home/ubuntu/my_chrome_data";
+const singletonLockFile = path.join(userDataDir, "SingletonLock");
+
+if (fs.existsSync(singletonLockFile)) {
+  fs.unlinkSync(singletonLockFile);
+}
+
 const run = async () => {
   let browser;
   try {
     browser = await puppeteer.launch({
       headless: "new",
-      userDataDir: "/home/ubuntu/my_chrome_data",
+      userDataDir,
     });
     const page = await browser.newPage();
     await page.goto("https://ibexlabs.keka.com/");
