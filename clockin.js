@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 
-const userDataDirPath = "/home/ubuntu/my_chrome_data";
+const userDataDirPath = "/Users/imperium/Documents/my_chrome_data";
 
 (async () => {
   try {
@@ -14,6 +14,8 @@ const userDataDirPath = "/home/ubuntu/my_chrome_data";
     await page.goto("https://ibexlabs.keka.com/#/home/dashboard", {
       waitUntil: "networkidle2",
     });
+
+    await new Promise((resolve) => setTimeout(resolve, 5000));
 
     let buttons = await page.$x("//button[contains(text(), 'Web Clock-In')]");
     if (buttons.length > 0) {
