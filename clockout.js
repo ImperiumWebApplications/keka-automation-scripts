@@ -11,9 +11,7 @@ const userDataDirPath = "/home/ubuntu/my_chrome_data";
 
     const page = await browser.newPage();
 
-    await page.goto("https://ibexlabs.keka.com/#/home/dashboard", {
-      waitUntil: "networkidle2",
-    });
+    await page.goto("https://ibexlabs.keka.com/#/home/dashboard");
 
     let buttons = await page.$x("//button[contains(text(), 'Clock-out')]");
     if (buttons.length > 0) {
