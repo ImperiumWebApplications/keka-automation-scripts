@@ -13,6 +13,8 @@ const userDataDirPath = "/home/ubuntu/my_chrome_data";
 
     await page.goto("https://ibexlabs.keka.com/#/home/dashboard");
 
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+
     let buttons = await page.$x("//button[contains(text(), 'Clock-out')]");
     if (buttons.length > 0) {
       await buttons[0].click();
