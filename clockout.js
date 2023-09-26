@@ -1,10 +1,11 @@
 const puppeteer = require("puppeteer");
 
 const userDataDirPath = "/home/ubuntu/my_chrome_data";
+let browser;
 
 (async () => {
   try {
-    const browser = await puppeteer.launch({
+    browser = await puppeteer.launch({
       headless: "new",
       userDataDir: userDataDirPath,
     });
@@ -40,11 +41,13 @@ const userDataDirPath = "/home/ubuntu/my_chrome_data";
       console.log("Button not found");
     }
 
-    // Adding a 5-second delay to observe the browser before it closes
     await new Promise((resolve) => setTimeout(resolve, 5000));
 
     await browser.close();
   } catch (error) {
+    if (browser) {
+      await browser.close();
+    }
     console.error("An error occurred:", error);
   }
 })();
