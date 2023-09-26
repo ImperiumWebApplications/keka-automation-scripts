@@ -5,8 +5,12 @@ const path = require("path");
 const userDataDir = "/home/ubuntu/my_chrome_data";
 const singletonLockFile = path.join(userDataDir, "SingletonLock");
 
-if (fs.existsSync(singletonLockFile)) {
+try {
   fs.unlinkSync(singletonLockFile);
+} catch (error) {
+  if (error.code !== "ENOENT") {
+    console.log(`Error deleting SingletonLock file: ${error}`);
+  }
 }
 
 const run = async () => {
