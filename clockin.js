@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 
-const userDataDirPath = "/Users/imperium/Documents/my_chrome_data";
+const userDataDirPath = "/home/ubuntu/my_chrome_data";
 
 (async () => {
   try {
