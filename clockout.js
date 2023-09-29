@@ -13,7 +13,7 @@ let browser;
     const page = await browser.newPage();
     await page.goto("https://ibexlabs.keka.com/#/home/dashboard");
     await page.setDefaultNavigationTimeout(60000);
-
+    console.log("Finding first button");
     await page.waitForXPath("//button[contains(text(), 'Clock-out')]", {
       timeout: 30000,
     });
@@ -23,7 +23,7 @@ let browser;
     } else {
       console.log("Button not found");
     }
-
+    console.log("Finding second button");
     await page.waitForXPath("//button[contains(text(), 'Clock-out')]", {
       timeout: 30000,
     });
