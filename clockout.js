@@ -15,11 +15,13 @@ let browser;
     await page.setDefaultNavigationTimeout(60000);
     console.log("Finding first button");
     await page.waitForXPath(
-      "//button[contains(normalize-space(text()), 'Clock-out')]",
+      "//button[contains(normalize-space(), 'Clock-out')]",
       { timeout: 30000 }
     );
 
-    let buttons = await page.$x("//button[contains(normalize-space(text()), 'Clock-out')]");
+    let buttons = await page.$x(
+      "//button[contains(normalize-space(text()), 'Clock-out')]"
+    );
     if (buttons.length > 0) {
       await buttons[0].click();
     } else {
@@ -27,11 +29,13 @@ let browser;
     }
     console.log("Finding second button");
     await page.waitForXPath(
-      "//button[contains(normalize-space(text()), 'Clock-out')]",
+      "//button[contains(normalize-space(), 'Clock-out')]",
       { timeout: 30000 }
     );
 
-    buttons = await page.$x("//button[contains(normalize-space(text()), 'Clock-out')]");
+    buttons = await page.$x(
+      "//button[contains(normalize-space(text()), 'Clock-out')]"
+    );
     if (buttons.length > 0) {
       await buttons[0].click();
     } else {
@@ -39,7 +43,7 @@ let browser;
     }
 
     await page.waitForXPath(
-      "//button[contains(normalize-space(text()), 'Clock-out')]",
+      "//button[contains(normalize-space(), 'Clock-out')]",
       { timeout: 30000 }
     );
 
