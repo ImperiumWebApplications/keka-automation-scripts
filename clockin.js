@@ -12,7 +12,7 @@ const userDataDirPath = "/home/ubuntu/my_chrome_data";
 
     await page.goto("https://ibexlabs.keka.com/#/home/dashboard");
 
-    await page.waitForTimeout(20000); // Wait for page to load
+    await page.waitForTimeout(60000); // Wait for page to load
 
     // Function to find and click a button based on its text content
     async function clickButton(text) {
