@@ -14,7 +14,7 @@ let browser;
 
     await page.goto("https://ibexlabs.keka.com/#/home/dashboard");
 
-    await new Promise((resolve) => setTimeout(resolve, 60000));
+    await new Promise((resolve) => setTimeout(resolve, 300000));
 
     let buttons = await page.$x("//button[contains(text(), 'Web Clock-In')]");
     if (buttons.length > 0) {
