@@ -1,6 +1,6 @@
 const { chromium } = require("playwright");
 
-const userDataDirPath = "/home/ubuntu/my_chrome_data";
+const userDataDirPath = "/Users/imperium/Documents/my_chrome_data";
 
 (async () => {
   let context;
