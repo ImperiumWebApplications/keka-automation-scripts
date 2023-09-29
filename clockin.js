@@ -1,38 +1,39 @@
-const puppeteer = require("puppeteer");
+const { chromium } = require("playwright");
 
 const userDataDirPath = "/home/ubuntu/my_chrome_data";
 let browser;
 
 (async () => {
   try {
-    browser = await puppeteer.launch({
-      headless: "new",
+    browser = await chromium.launch({
+      headless: false, // Changed 'new' to false to disable headless mode
       userDataDir: userDataDirPath,
     });
 
-    const page = await browser.newPage();
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
     await page.goto("https://ibexlabs.keka.com/#/home/dashboard");
-    await page.setDefaultNavigationTimeout(60000); // Set timeout to 60 seconds
 
-    await page.waitForXPath("//button[contains(text(), 'Web Clock-In')]", {
-      timeout: 30000,
-    });
-    let buttons = await page.$x("//button[contains(text(), 'Web Clock-In')]");
+    await page.waitForTimeout(20000); // Replaced the Promise + setTimeout with waitForTimeout
+
+    let buttons = await page.$$("text=Web Clock-In"); // Replaced the XPath selector with a text selector
     if (buttons.length > 0) {
       await buttons[0].click();
     } else {
       console.log("Button not found");
     }
 
-    await page.waitForXPath("//button[contains(text(), 'Confirm')]", {
-      timeout: 30000,
-    });
-    buttons = await page.$x("//button[contains(text(), 'Confirm')]");
+    await page.waitForTimeout(5000);
+
+    buttons = await page.$$("text=Confirm"); // Replaced the XPath selector with a text selector
     if (buttons.length > 0) {
       await buttons[0].click();
     } else {
       console.log("Button not found");
     }
+
+    await page.waitForTimeout(5000);
 
     await browser.close();
   } catch (error) {
