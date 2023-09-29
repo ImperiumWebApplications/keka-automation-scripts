@@ -1,16 +1,18 @@
 const { chromium } = require("playwright");
 
 const userDataDirPath = "/home/ubuntu/my_chrome_data";
-let browser;
 
 (async () => {
+  let browser;
+  let context;
   try {
-    browser = await chromium.launch({
+    const options = {
       headless: false, // Changed 'new' to false to disable headless mode
       userDataDir: userDataDirPath,
-    });
+    };
 
-    const context = await browser.newContext();
+    context = await chromium.launchPersistentContext(userDataDirPath, options);
+    browser = context.browser();
     const page = await context.newPage();
 
     await page.goto("https://ibexlabs.keka.com/#/home/dashboard");
