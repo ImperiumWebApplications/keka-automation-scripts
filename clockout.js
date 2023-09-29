@@ -14,7 +14,7 @@ const userDataDirPath = "/home/ubuntu/my_chrome_data";
 
     await page.goto("https://ibexlabs.keka.com/#/home/dashboard");
 
-    await page.waitForTimeout(300000); // Replaced the Promise + setTimeout with waitForTimeout
+    await page.waitForTimeout(20000); // Replaced the Promise + setTimeout with waitForTimeout
 
     let buttons = await page.$$("text=Clock-out"); // Replaced the XPath selector with a text selector
     if (buttons.length > 0) {
