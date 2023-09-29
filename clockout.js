@@ -11,7 +11,7 @@ const userDataDirPath = "/home/ubuntu/my_chrome_data";
       userDataDir: userDataDirPath,
     };
 
-    context = await chromium.launchPersistentContext(userDataDirPath, options);
+    context = await chromium.launchPersistentContext(null, options);
     browser = context.browser();
     const page = await context.newPage();
 
