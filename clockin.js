@@ -1,11 +1,11 @@
-const { firefox } = require("playwright");
+const { chromium } = require("playwright");
 
 const userDataDirPath = "/home/ubuntu/my_chrome_data";
 
 (async () => {
   let context;
   try {
-    context = await firefox.launchPersistentContext(userDataDirPath, {
+    context = await chromium.launchPersistentContext(userDataDirPath, {
       headless: true,
     });
     const page = await context.newPage();
