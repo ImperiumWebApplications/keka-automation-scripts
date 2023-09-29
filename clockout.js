@@ -7,7 +7,7 @@ const userDataDirPath = "/home/ubuntu/my_chrome_data";
   let context;
   try {
     context = await chromium.launchPersistentContext(userDataDirPath, {
-      headless: false, // Changed 'new' to false to disable headless mode
+      headless: true, // Changed 'new' to false to disable headless mode
     });
     browser = context.browser();
     const page = await context.newPage();
