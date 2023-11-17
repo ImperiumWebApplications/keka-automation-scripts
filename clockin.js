@@ -7,7 +7,7 @@ async function runClockInScript(retryCount = 0) {
   let context;
   try {
     context = await chromium.launchPersistentContext(userDataDirPath, {
-      headless: true,
+      headless: false,
     });
     const page = await context.newPage();
 
