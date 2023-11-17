@@ -4,11 +4,12 @@ const userDataDirPath = "/Users/imperium/Documents/my_chrome_data";
 
 (async () => {
   let context;
+  let page;
   try {
     context = await chromium.launchPersistentContext(userDataDirPath, {
       headless: true,
     });
-    const page = await context.newPage();
+    page = await context.newPage();
 
     await page.goto("https://ibexlabs.keka.com/#/home/dashboard");
 
