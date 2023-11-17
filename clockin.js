@@ -37,9 +37,17 @@ const userDataDirPath = "/Users/imperium/Documents/my_chrome_data";
 
     await context.close();
   } catch (error) {
+    console.error("An error occurred:", error);
+    if (page) {
+      // Specify the path where you want to save the screenshot
+      const screenshotPath = "screenshots/screenshot.png";
+
+      // Take a screenshot of the current page state
+      await page.screenshot({ path: screenshotPath });
+      console.log(`Screenshot taken: ${screenshotPath}`);
+    }
     if (context) {
       await context.close();
     }
-    console.error("An error occurred:", error);
   }
 })();
