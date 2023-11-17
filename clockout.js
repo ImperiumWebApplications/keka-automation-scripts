@@ -41,7 +41,7 @@ const userDataDirPath = "/Users/imperium/Documents/my_chrome_data";
 
     await context.close();
   } catch (error) {
-    console.error("An error occurred:", error);
+    console.error("An error occurred whle clocking out:", error);
     if (page) {
       // Specify the path where you want to save the screenshot
       const screenshotPath = "screenshots/screenshot.png";
