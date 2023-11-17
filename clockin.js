@@ -12,7 +12,7 @@ const userDataDirPath = "/Users/imperium/Documents/my_chrome_data";
 
     await page.goto("https://ibexlabs.keka.com/#/home/dashboard");
 
-    await page.waitForTimeout(40000); // Wait for page to load
+    await page.waitForTimeout(20000); // Wait for page to load
 
     // Function to find and click a button based on its text content
     async function clickButton(text) {
@@ -29,11 +29,11 @@ const userDataDirPath = "/Users/imperium/Documents/my_chrome_data";
     }
 
     await clickButton("Web Clock-In"); // Click the first Clock-out button
-    await page.waitForSelector("text=Confirm", { timeout: 10000 }); // Wait for a certain element or text to appear
+    await page.waitForSelector("text=Confirm", { timeout: 5000 }); // Wait for a certain element or text to appear
 
     await clickButton("Confirm"); // Click the Confirm button
 
-    await page.waitForTimeout(10000);
+    await page.waitForTimeout(5000);
 
     await context.close();
   } catch (error) {
