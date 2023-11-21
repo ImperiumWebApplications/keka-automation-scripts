@@ -38,10 +38,15 @@ const userDataDirPath = "/Users/imperium/Documents/my_chrome_data";
 
     await context.close();
   } catch (error) {
-    console.error("An error occurred while clocking in:", error);
+    console.error(
+      new Date().toISOString(),
+      ":",
+      "An error occurred while clocking in:",
+      error
+    );
     if (page) {
       // Specify the path where you want to save the screenshot
-      const screenshotPath = "screenshots/screenshot.png";
+      const screenshotPath = `screenshots/clockin-screenshot-${new Date().toISOString()}.png`;
 
       // Take a screenshot of the current page state
       await page.screenshot({ path: screenshotPath });
