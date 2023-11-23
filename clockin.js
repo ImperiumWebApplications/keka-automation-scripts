@@ -45,8 +45,15 @@ const userDataDirPath = "/Users/imperium/Documents/my_chrome_data";
       error
     );
     if (page) {
-      // Specify the path where you want to save the screenshot
-      const screenshotPath = `screenshots/clockin-screenshot-${new Date().toISOString()}.png`;
+      const screenshotsDir = path.join(__dirname, "screenshots");
+      if (!fs.existsSync(screenshotsDir)) {
+        fs.mkdirSync(screenshotsDir);
+      }
+
+      const screenshotPath = path.join(
+        screenshotsDir,
+        `clockin-screenshot-${new Date().toISOString()}.png`
+      );
 
       // Take a screenshot of the current page state
       await page.screenshot({ path: screenshotPath });
