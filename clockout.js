@@ -1,4 +1,5 @@
 const { chromium } = require("playwright");
+const path = require("path");
 
 const userDataDirPath = "/Users/imperium/Documents/my_chrome_data";
 
