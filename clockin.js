@@ -3,49 +3,65 @@ const path = require("path");
 const fs = require("fs");
 
 const userDataDirPath = "/Users/imperium/Documents/my_chrome_data";
+const maxRetries = 1; // You can adjust the number of retries
 
 (async () => {
   let context;
   let page;
+  let retries = 0;
+
   try {
     context = await chromium.launchPersistentContext(userDataDirPath, {
       headless: true,
     });
     page = await context.newPage();
 
-    await page.goto("https://ibexlabs.keka.com/#/home/dashboard");
+    await performClockIn();
+  } catch (error) {
+    console.error(new Date().toISOString(), ":", "An error occurred:", error);
 
-    await page.waitForTimeout(20000); // Wait for page to load
-
-    // Function to find and click a button based on its text content
-    async function clickButton(text) {
-      const button = await page.evaluateHandle((text) => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        return buttons.find((button) => button.textContent.includes(text));
-      }, text);
-
-      if (button) {
-        await button.click();
-      } else {
-        console.log(`Button with text "${text}" not found`);
+    if (retries < maxRetries) {
+      retries++;
+      console.log("Attempting to retry...");
+      await page.reload({ waitUntil: "domcontentloaded" });
+      try {
+        await performClockIn();
+      } catch (retryError) {
+        console.error("Retry also failed:", retryError);
+        await handleError();
       }
+    } else {
+      await handleError();
     }
+  }
 
-    await clickButton("Web Clock-In"); // Click the first Clock-out button
-    await page.waitForSelector("text=Confirm", { timeout: 5000 }); // Wait for a certain element or text to appear
+  async function performClockIn() {
+    await page.goto("https://ibexlabs.keka.com/#/home/dashboard");
+    await page.waitForTimeout(20000);
 
-    await clickButton("Confirm"); // Click the Confirm button
+    await clickButton("Web Clock-In");
+    await page.waitForSelector("text=Confirm", { timeout: 5000 });
 
+    await clickButton("Confirm");
     await page.waitForTimeout(5000);
 
     await context.close();
-  } catch (error) {
-    console.error(
-      new Date().toISOString(),
-      ":",
-      "An error occurred while clocking in:",
-      error
-    );
+  }
+
+  async function clickButton(text) {
+    const button = await page.evaluateHandle((text) => {
+      const buttons = Array.from(document.querySelectorAll("button"));
+      return buttons.find((button) => button.textContent.includes(text));
+    }, text);
+
+    if (button) {
+      await button.click();
+    } else {
+      console.log(`Button with text "${text}" not found`);
+    }
+  }
+
+  async function handleError() {
     if (page) {
       const screenshotsDir = path.join(__dirname, "screenshots");
       if (!fs.existsSync(screenshotsDir)) {
@@ -57,7 +73,6 @@ const userDataDirPath = "/Users/imperium/Documents/my_chrome_data";
         `clockin-screenshot-${new Date().toISOString()}.png`
       );
 
-      // Take a screenshot of the current page state
       await page.screenshot({ path: screenshotPath });
       console.log(`Screenshot taken: ${screenshotPath}`);
     }
